@@ -2,6 +2,7 @@ package formas;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.*;
 import visual.InputDialog;
@@ -13,7 +14,7 @@ import visual.InputDialog;
 public class DrawArea extends JComponent {
 
   private String desenho = "nenhum";
-  private Image image;
+  private BufferedImage image;
   public static Graphics2D g2;
   private int pX, pY, eW, eH;
 
@@ -77,7 +78,7 @@ public class DrawArea extends JComponent {
   @Override
   protected void paintComponent(Graphics g) {
     if (image == null) {
-      image = createImage(getSize().width, getSize().height);
+      image = (BufferedImage) createImage(getSize().width, getSize().height);
       g2 = (Graphics2D) image.getGraphics();
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
       clear();
@@ -94,9 +95,10 @@ public class DrawArea extends JComponent {
     listaDeFormas.clear();
   }
 
+    ListaDeFormas lF = new ListaDeFormas();
+    ArrayList<Forma> f = lF.getListaDeFormas();
+
   public void desenharLista(){
-        ListaDeFormas lF = new ListaDeFormas();
-        ArrayList<Forma> f = lF.getListaDeFormas();
         for (Forma forma : f) {
             pX = forma.getLocationX();
             pY = forma.getLocationY();
@@ -104,12 +106,15 @@ public class DrawArea extends JComponent {
             eH = forma.getDimensaoY();
             switch(forma.getNome()){
                 case "Circunferencia":
+                        g2.setColor(forma.getCor());
                         g2.drawOval(pX-eW, pY-eW, 2*eW, 2*eW);
                     break;
                 case "Retangulo":
+                        g2.setColor(forma.getCor());
                         g2.drawRect(pX - (eW/2), pY - (eH/2), eW, eH);
                     break;
                 case "Triangulo":
+                        g2.setColor(forma.getCor());
                         int [] xPointsT = {pX - (eW/2), pX + (eW/2), pX}, yPointsT = {pY + (eH/2), pY + (eH/2), pY - (eH/2)};
                         g2.drawPolygon(xPointsT, yPointsT, 3);
                     break;
