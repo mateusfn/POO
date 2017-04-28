@@ -16,6 +16,10 @@ public abstract class Forma extends Polygon {
     public Forma(String nome, Color cor, int locationX, int locationY, int dimensaoX, int dimensaoY){
         this.nome = nome;
         this.cor = cor;
+        this.locationX = locationX;
+        this.locationY = locationY;
+        this.dimensaoX = dimensaoX;
+        this.dimensaoY = dimensaoY;
     }
 
     public String getNome() {
